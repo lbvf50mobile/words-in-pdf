@@ -1,17 +1,17 @@
-
+require 'benchmark'
+require 'colorize'
 # documents
 docs = %w{pdf_source/progit_en.pdf pdf_source/progit_ru.pdf}
 
 # check do them exists:
 docs.each do |d|
-    p `ls #{d}`
+    puts File.file?(d) ? "#{d} exists".green : "#{d} not exists"
 end
 
 # convert pdf to text
 # PDF to TXT pdf_source/progit_en.pdf: 73.22
 # PDF to TXT pdf_source/progit_ru.pdf: 75.38
-require 'benchmark'
-require 'colorize'
+
 
 docs.each do |d|
     puts "Convert PDF to TXT #{d}:".green
