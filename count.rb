@@ -36,8 +36,9 @@ def count_words(file_name)
     p words[1..10]
     puts "Last 10 words:".green
     p words[-10..-1]
-    puts "RUSSIAN words:".red
-    words = lines.reduce(:+).split.map{|x| x.downcase}.select{|x| /^[а-я]+$/ === x}.uniq.sort
+    puts "RUSSIAN (Cyrillic) words:".red
+    # http://rubular.com/r/X5ZXPMBqQl
+    words = lines.reduce(:+).split.map{|x| x.downcase}.select{|x| /\p{Cyrillic}+/ === x}.uniq.sort
     puts "Total words:".green
     p words.size
     puts "First 10 words:".green
