@@ -25,10 +25,10 @@ docs.each do |d|
     puts  ("PDF to TXT #{d}: %.2f" % time.real).magenta
 end
 
-# Count numer of words
-docs.each do |d|
-    puts "#{d}.txt".green
-    lines =  File.readlines("#{d}.txt")
+def count_words(file_name)
+    puts "#{file_name}".green
+    lines =  File.readlines(file_name)
+    puts "ENGLISH words:".red
     words = lines.reduce(:+).split.select{|x| /^[a-zA-Z]+$/ === x}.map{|x| x.downcase}.uniq.sort
     puts "Total words:".green
     p words.size
@@ -36,4 +36,21 @@ docs.each do |d|
     p words[1..10]
     puts "Last 10 words:".green
     p words[-10..-1]
+    puts "RUSSIAN words:".red
+    words = lines.reduce(:+).split.map{|x| x.downcase}.select{|x| /^[а-я]+$/ === x}.uniq.sort
+    puts "Total words:".green
+    p words.size
+    puts "First 10 words:".green
+    p words[1..10]
+    puts "Last 10 words:".green
+    p words[-10..-1]
+end
+
+# Count numer of words
+docs.each do |d|
+    puts "Count numer of words #{d}:".green
+    time = Benchmark.measure {
+        count_words(d+".txt")
+    }
+    puts  ("Count numer of words #{d}: %.2f" % time.real).magenta
 end
