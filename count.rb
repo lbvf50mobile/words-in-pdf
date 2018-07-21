@@ -24,3 +24,16 @@ docs.each do |d|
     }
     puts  ("PDF to TXT #{d}: %.2f" % time.real).magenta
 end
+
+# Count numer of words
+docs.each do |d|
+    puts "#{d}.txt".green
+    lines =  File.readlines("#{d}.txt")
+    words = lines.reduce(:+).split.select{|x| /^[a-zA-Z]+$/ === x}.map{|x| x.downcase}.uniq.sort
+    puts "Total words:".green
+    p words.size
+    puts "First 10 words:".green
+    p words[1..10]
+    puts "Last 10 words:".green
+    p words[-10..-1]
+end
